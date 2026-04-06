@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 const title = 'Folio'
-const description = 'Folio - Tu tracker de inversiones'
+const description = 'Tu tracker de inversiones'
 
 export const metadata: Metadata = {
     title: {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         default: title
     },
     description,
-    metadataBase: new URL('https://project-domain.com'),
+    metadataBase: new URL('https://folio-track.vercel.app'),
     openGraph: {
         title,
         description,
