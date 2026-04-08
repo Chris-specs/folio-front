@@ -2,17 +2,14 @@
 
 import { Icons } from '@/core/components/custom/icons'
 import { Button } from '@/core/components/ui/button'
-import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { authClient } from '../lib/client'
 
 export function SignInForm() {
-    const { replace } = useRouter()
-
     async function handleGoogleSignIn() {
         const { error } = await authClient.signIn.social({
             provider: 'google',
-            disableRedirect: true
+            callbackURL: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/home`
         })
         if (error) {
             toast.error('¡Uh oh! Algo salió mal', {
@@ -20,7 +17,6 @@ export function SignInForm() {
             })
             return
         }
-        replace('/dashboard/home')
     }
 
     return (
