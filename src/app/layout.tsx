@@ -1,4 +1,6 @@
+import { Toaster } from '@/core/components/ui/sonner'
 import { geistMono, geistSans } from '@/core/constants/fonts'
+import { QueryClientProvider } from '@/core/providers/query-client'
 import type { Metadata } from 'next'
 import './globals.css'
 
@@ -44,7 +46,10 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
             >
-                {children}
+                <QueryClientProvider>
+                    {children}
+                    <Toaster />
+                </QueryClientProvider>
             </body>
         </html>
     )
