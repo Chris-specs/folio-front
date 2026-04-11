@@ -1,5 +1,3 @@
-'use client'
-
 import { HomeUserName } from '@/modules/dashboard/components/home-user-name'
 
 export default function HomePage() {
