@@ -32,7 +32,7 @@ export function AnimatedQuotes() {
                     animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                     exit={{ opacity: 0, filter: 'blur(2px)' }}
                     transition={{ duration: 1 }}
-                    className="text-background text-center text-2xl"
+                    className="text-center text-2xl text-white"
                 >
                     {QUOTES[index].quote}
                 </m.p>
@@ -41,7 +41,7 @@ export function AnimatedQuotes() {
                     animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                     exit={{ opacity: 0, filter: 'blur(2px)' }}
                     transition={{ duration: 0.7, delay: 0.4 }}
-                    className="text-background text-center text-sm"
+                    className="text-center text-sm text-white"
                 >
                     {QUOTES[index].author}
                 </m.p>

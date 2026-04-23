@@ -1,6 +1,7 @@
 import { Toaster } from '@/core/components/ui/sonner'
 import { geistMono, geistSans } from '@/core/constants/fonts'
 import { QueryClientProvider } from '@/core/providers/query-client'
+import { ThemeProvider } from '@/core/providers/theme'
 import type { Metadata } from 'next'
 import './globals.css'
 
@@ -42,14 +43,21 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang="es-MX">
+        <html lang="es-MX" suppressHydrationWarning>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
             >
-                <QueryClientProvider>
-                    {children}
-                    <Toaster />
-                </QueryClientProvider>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <QueryClientProvider>
+                        {children}
+                        <Toaster />
+                    </QueryClientProvider>
+                </ThemeProvider>
             </body>
         </html>
     )

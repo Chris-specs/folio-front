@@ -11,6 +11,7 @@ import {
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuSeparator,
+    DropdownMenuShortcut,
     DropdownMenuTrigger
 } from '@/core/components/ui/dropdown-menu'
 import {
@@ -20,15 +21,17 @@ import {
     useSidebar
 } from '@/core/components/ui/sidebar'
 import { Skeleton } from '@/core/components/ui/skeleton'
+import { useKeydown } from '@/core/hooks/use-keydown'
 import { authClient } from '@/modules/auth/lib/client'
 import {
-    CheckmarkBadge02Icon,
+    GibbousMoonIcon,
     Logout01Icon,
     UnfoldMoreIcon,
     UserIcon
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTheme } from 'next-themes'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -39,6 +42,12 @@ function AppSidebarUserDropdownCore() {
     const { isMobile } = useSidebar()
     const queryClient = useQueryClient()
     const { replace } = useRouter()
+    const { setTheme, resolvedTheme } = useTheme()
+    useKeydown('m', handleThemeChange)
+
+    function handleThemeChange() {
+        setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+    }
 
     const { mutate, isPending } = useMutation({
         mutationFn: () => authClient.signOut(),
@@ -115,20 +124,22 @@ function AppSidebarUserDropdownCore() {
                         <DropdownMenuSeparator />
 
                         <DropdownMenuGroup>
-                            <Link href="/dashboard/admin/profile">
+                            <Link href="/dashboard/account">
                                 <DropdownMenuItem>
                                     <HugeiconsIcon icon={UserIcon} />
-                                    Perfil
-                                </DropdownMenuItem>
-                            </Link>
-                            <Link href="/dashboard/admin/account">
-                                <DropdownMenuItem>
-                                    <HugeiconsIcon
-                                        icon={CheckmarkBadge02Icon}
-                                    />
                                     Cuenta
                                 </DropdownMenuItem>
                             </Link>
+                            <DropdownMenuItem
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    handleThemeChange()
+                                }}
+                            >
+                                <HugeiconsIcon icon={GibbousMoonIcon} />
+                                Cambiar tema
+                                <DropdownMenuShortcut>M</DropdownMenuShortcut>
+                            </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
